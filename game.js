@@ -14,18 +14,29 @@
 		})();
 		this.ship = new Asteroids.Ship();
 		this.bullets = [];
+
+		this.img = new Image() || this.img;
+			this.img.src = 'Nyan_cat_250px_frame.png';
+			that = this;
+			this.img.onload = function() {
+			  Asteroids.CTX.drawImage(that.img, 0, 0);
+				
+			}
 	};
 
 	Game.prototype.fireBullet = function() {
-		this.bullets.push(this.ship.fireBullet());
-		console.log("bullet color is " + this.bullets[0].color)
-		console.log("bullet position is " + this.bullets[0].pos);
-		console.log("bullet velocity is " + this.bullets[0].vel);
+		bullet = this.ship.fireBullet();
 
+		if (bullet != null) {
+		  this.bullets.push(bullet);
+		}
 	}
 
 	Game.prototype.draw = function () {
 		Asteroids.CTX.clearRect(0, 0, Asteroids.WIDTH, Asteroids.HEIGHT);
+
+			Asteroids.CTX.drawImage(this.img, 0, 0)
+
 
 		this.asteroids.forEach(function (asteroid) {
 			asteroid.draw();
@@ -102,13 +113,7 @@
 	Game.prototype.checkWinner = function() {
 		if(this.asteroids.length === 0) {
 			this.stop();
-			this.img = new Image() || this.img;
-			this.img.src = 'Nyan_cat_250px_frame.png';
-			that = this
-			this.img.onload = function() {
-			  Asteroids.CTX.drawImage(that.img, 0, 0);
-				alert("huzzah!");
-			}
+			alert("huzzah!");
 		}
 	};
 
